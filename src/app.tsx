@@ -9,7 +9,7 @@ export const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        <Route path="/list" element={<ListPage />} />
+        <Route path="/list" element={<ListPage organization="lemoncode" />} />
         <Route path="/detail/:id" element={<DetailPage />} />
       </Routes>
     </Router>

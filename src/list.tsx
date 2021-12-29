@@ -1,27 +1,18 @@
 import React from "react";
-import { Link, generatePath } from "react-router-dom";
+import { getMembers } from "./api/api-member";
+import ApiMemberEntity from "./api/api-member-entity";
+import { MemberTableHead } from "./components/member-table-head";
+import { MemberTableRow } from "./components/member-table-row";
 
-interface MemberEntity {
-  id: string;
-  login: string;
-  avatar_url: string;
+interface Props {
+  organization: string;
 }
 
-const getMembers = (inputMember: string): Promise<MemberEntity[]> => {
-  return fetch(`https://api.github.com/orgs/${inputMember}/members`).then(
-    (response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        return [];
-      }
-    }
-  );
-};
+export const ListPage: React.FC<Props> = React.memo((props) => {
+  const { organization } = props;
 
-export const ListPage: React.FC = () => {
-  const [members, setMembers] = React.useState<MemberEntity[]>([]);
-  const [inputMember, setInputMember] = React.useState("lemoncode");
+  const [members, setMembers] = React.useState<ApiMemberEntity[]>([]);
+  const [inputMember, setInputMember] = React.useState(organization);
 
   React.useEffect(() => {
     getMembers(inputMember).then((data) => {
@@ -55,31 +46,13 @@ export const ListPage: React.FC = () => {
       <button onClick={handleSearchClick}>Buscar</button>
 
       <table className="table">
-        <thead>
-          <tr>
-            <th>Avatar</th>
-            <th>Id</th>
-            <th>Name</th>
-          </tr>
-        </thead>
+        <MemberTableHead />
         <tbody>
           {members?.map((member) => (
-            <tr key={member.id}>
-              <td>
-                <img src={member.avatar_url} style={{ width: "5rem" }} />
-              </td>
-              <td>
-                <span>{member.id}</span>
-              </td>
-              <td>
-                <Link to={generatePath("/detail/:id", { id: member.login })}>
-                  {member.login}
-                </Link>
-              </td>
-            </tr>
+            <MemberTableRow member={member} key={member.id} />
           ))}
         </tbody>
       </table>
     </>
   );
-};
+});
