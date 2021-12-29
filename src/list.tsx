@@ -1,14 +1,13 @@
 import React from "react";
 import { getMembers } from "./api/api-member";
 import ApiMemberEntity from "./api/api-member-entity";
-import { MemberTableHead } from "./components/member-table-head";
-import { MemberTableRow } from "./components/member-table-row";
+import { MemberTable } from "./components/member-table";
 
 interface Props {
   organization: string;
 }
 
-export const ListPage: React.FC<Props> = React.memo((props) => {
+export const ListPage: React.FC<Props> = (props) => {
   const { organization } = props;
 
   const [members, setMembers] = React.useState<ApiMemberEntity[]>([]);
@@ -45,14 +44,7 @@ export const ListPage: React.FC<Props> = React.memo((props) => {
       />
       <button onClick={handleSearchClick}>Buscar</button>
 
-      <table className="table">
-        <MemberTableHead />
-        <tbody>
-          {members?.map((member) => (
-            <MemberTableRow member={member} key={member.id} />
-          ))}
-        </tbody>
-      </table>
+      <MemberTable members={members} />
     </>
   );
-});
+};
