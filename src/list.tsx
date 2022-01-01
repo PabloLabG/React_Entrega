@@ -1,25 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import { getMembers } from "./api/api-member";
 import ApiMemberEntity from "./api/api-member-entity";
 import { MemberTable } from "./components/member-table";
+import { OrganizationContext } from "./context/organization-context";
 
+/*
 interface Props {
   organization: string;
 }
+*/
+export const ListPage: React.FC /*<Props>*/ = (/*props*/) => {
+  // const { organization } = props;
+  const { organizationContext, setOrganizationContext } =
+    React.useContext(OrganizationContext);
 
-export const ListPage: React.FC<Props> = (props) => {
-  const { organization } = props;
-
+  //const [inputMember, setInputMember] = React.useState(organizationContext);
   const [members, setMembers] = React.useState<ApiMemberEntity[]>([]);
-  const [inputMember, setInputMember] = React.useState(organization);
 
   React.useEffect(() => {
-    getMembers(inputMember).then((data) => {
+    getMembers(organizationContext).then((data) => {
       setMembers(data);
     });
   }, []);
 
-  const handleInputMemberChange = (event) => setInputMember(event.target.value);
+  const handleInputMemberChange = (event) =>
+    setOrganizationContext(event.target.value);
   const handleKeyUpMember = (event) => {
     if (event.key === "Enter" || event.keyCode === 13) {
       handleSearchClick();
@@ -27,7 +32,7 @@ export const ListPage: React.FC<Props> = (props) => {
   };
 
   const handleSearchClick = () => {
-    getMembers(inputMember).then((data) => {
+    getMembers(organizationContext).then((data) => {
       setMembers(data);
     });
   };
@@ -38,7 +43,7 @@ export const ListPage: React.FC<Props> = (props) => {
 
       <input
         type="text"
-        value={inputMember}
+        value={organizationContext}
         onChange={handleInputMemberChange}
         onKeyUp={handleKeyUpMember}
       />
