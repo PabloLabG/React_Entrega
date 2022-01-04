@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { LoginPage } from "./login";
+import { TableMUI } from "./table.mui";
 import { ListPage } from "./list";
 import { DetailPage } from "./detail";
 import { OrganizationContextProvider } from "./context/organization-context-provider";
@@ -10,7 +10,7 @@ export const App = () => {
     <OrganizationContextProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<ListPage />} />
+          <Route path="/" element={<TableMUI organization="lemoncode" />} />
           <Route path="/list" element={<ListPage />} />
           <Route path="/detail/:id" element={<DetailPage />} />
         </Routes>
