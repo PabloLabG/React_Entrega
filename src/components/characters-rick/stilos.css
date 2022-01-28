@@ -1,0 +1,33 @@
+.flex-container {
+  display: flex;
+  justify-content: flex-start;
+  background-color: #bbdefb;
+  height: 100%;
+  padding: 15px;
+  gap: 5px;
+}
+
+.flex-foto {
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: 300px;
+}
+
+.flex-container-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: unset;
+  align-content: flex-start;
+  height: 100vh;
+  width: 100vw;
+}
+
+.flex-container-row > div {
+  order: 0;
+  flex: 0 1 auto;
+  align-self: auto;
+  height: auto;
+  width: 100%;
+}

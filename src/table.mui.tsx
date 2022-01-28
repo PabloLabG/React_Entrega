@@ -1,7 +1,7 @@
 import React from "react";
 import { getMembers } from "./api/api-member";
 import ApiMemberEntity from "./api/api-member-entity";
-import { DataTable } from "./components/TableMUI/datatable.mui";
+import { DataTable } from "./components/table/TableMUI/datatable.mui";
 import Avatar from "@mui/material/Avatar";
 
 interface Props {
